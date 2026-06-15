@@ -1,0 +1,14 @@
+# Local scratch space
+work/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+
+# Optional local environment files
+.env
+.env.*
+
+# Temporary archives
+*.tmp
+*.zip

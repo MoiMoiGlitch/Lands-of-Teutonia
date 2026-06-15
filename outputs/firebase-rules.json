@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "teutoniaChat": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$messageId": {
+        ".validate": "newData.hasChildren(['createdAt', 'nick', 'text']) && newData.child('createdAt').isNumber() && newData.child('nick').isString() && newData.child('nick').val().length > 0 && newData.child('nick').val().length <= 24 && newData.child('text').isString() && newData.child('text').val().length > 0 && newData.child('text').val().length <= 280"
+      }
+    }
+  }
+}

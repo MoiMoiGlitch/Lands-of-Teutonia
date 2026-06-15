@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Lands of Teutonia: cuenta regresiva a la siguiente partida y reproductor sincronizado."
+    />
+    <title>Lands of Teutonia</title>
+    <link rel="preload" href="assets/teutonia-bg.png" as="image" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="gate-locked">
+    <div id="password-gate" class="password-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+      <form id="password-form" class="password-card">
+        <img
+          class="password-emblem"
+          src="assets/teutonia-emblem.png"
+          alt="Emblema de Lands of Teutonia"
+        />
+        <p class="kicker">Acceso privado</p>
+        <h1 id="gate-title">Lands of Teutonia</h1>
+        <label>
+          <span>Contrase&ntilde;a</span>
+          <input
+            id="password-input"
+            type="password"
+            autocomplete="current-password"
+            required
+            autofocus
+          />
+        </label>
+        <p id="password-error" class="password-error" aria-live="polite"></p>
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+
+    <canvas id="ember-canvas" class="ember-canvas" aria-hidden="true"></canvas>
+
+    <button
+      id="sidebar-toggle"
+      class="sidebar-toggle"
+      type="button"
+      aria-controls="sidebar"
+      aria-expanded="true"
+      aria-label="Mostrar u ocultar barra lateral"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <aside id="sidebar" class="sidebar" aria-label="Apartados de Lands of Teutonia">
+      <div class="sidebar-brand">
+        <img
+          class="sidebar-emblem"
+          src="assets/teutonia-emblem.png"
+          alt="Emblema de Lands of Teutonia"
+        />
+        <strong>Lands of Teutonia</strong>
+      </div>
+
+      <nav class="section-nav" aria-label="Secciones">
+        <a class="nav-item active" href="#contador-hype" aria-current="page">
+          <span>Contador del Hype</span>
+        </a>
+        <button class="nav-item" type="button" disabled>
+          <span>Cr&oacute;nicas</span>
+        </button>
+        <button class="nav-item" type="button" disabled>
+          <span>Personajes</span>
+        </button>
+        <button class="nav-item" type="button" disabled>
+          <span>Mapa</span>
+        </button>
+      </nav>
+    </aside>
+
+    <div id="sidebar-scrim" class="sidebar-scrim" aria-hidden="true"></div>
+
+    <main id="contador-hype" class="app-shell">
+      <section class="countdown-stage" aria-labelledby="campaign-title">
+        <div class="brand-block">
+          <p class="kicker">Contador del Hype</p>
+          <h1 id="campaign-title">Lands of Teutonia</h1>
+        </div>
+
+        <div class="countdown" aria-live="polite">
+          <p id="next-session" class="next-session">PROXIMA PARTIDA . JUEVES 22:00</p>
+          <div class="timer-grid" role="timer" aria-label="Cuenta regresiva">
+            <div class="time-unit">
+              <strong id="days">00</strong>
+              <span>D&iacute;as</span>
+            </div>
+            <div class="time-unit">
+              <strong id="hours">00</strong>
+              <span>Horas</span>
+            </div>
+            <div class="time-unit">
+              <strong id="minutes">00</strong>
+              <span>Min</span>
+            </div>
+            <div class="time-unit">
+              <strong id="seconds">00</strong>
+              <span>Seg</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sync-section" aria-labelledby="player-title">
+        <div class="sync-copy">
+          <p class="kicker">Ambiente sincronizado</p>
+          <h2 id="player-title">El mismo v&iacute;deo, el mismo segundo</h2>
+          <p>
+            El reproductor usa la hora global como referencia. Si dos personas
+            abren la p&aacute;gina a la vez, entrar&aacute;n en el mismo punto de la cola.
+          </p>
+        </div>
+
+        <div class="player-panel">
+          <h3 id="video-title" class="player-title">Preparando la sincronizaci&oacute;n</h3>
+          <div id="player" class="player-frame" aria-label="Reproductor de YouTube"></div>
+          <div class="player-meta">
+            <span>Bucle global sincronizado</span>
+            <button id="sync-button" type="button">Sincronizar ahora</button>
+          </div>
+
+          <div class="chat-panel" aria-labelledby="chat-title">
+            <div class="chat-heading">
+              <p class="kicker">Mesa abierta</p>
+              <h2 id="chat-title">Chat del hype (work in progress)</h2>
+            </div>
+
+            <div id="chat-status" class="chat-status">Chat local preparado</div>
+            <div id="chat-log" class="chat-log" aria-live="polite"></div>
+
+            <form id="chat-form" class="chat-form">
+              <label>
+                <span>Nick</span>
+                <input
+                  id="chat-nick"
+                  name="nick"
+                  type="text"
+                  maxlength="24"
+                  autocomplete="nickname"
+                  placeholder="Tu nombre"
+                  required
+                />
+              </label>
+              <label class="message-field">
+                <span>Mensaje</span>
+                <input
+                  id="chat-message"
+                  name="message"
+                  type="text"
+                  maxlength="280"
+                  autocomplete="off"
+                  placeholder="Escribe al grupo"
+                  required
+                />
+              </label>
+              <button type="submit">Enviar</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="duration-probe" class="duration-probe" aria-hidden="true"></div>
+
+    <script src="firebase-config.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
